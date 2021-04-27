@@ -94,7 +94,8 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h1 id="How-to-build-Fabric-Network-on-four-servers"><a href="#How-to-build-Fabric-Network-on-four-servers" class="headerlink" title="How to build Fabric Network on four servers."></a>How to build Fabric Network on four servers.</h1><p>The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_orderer, ca_org1 and ca_org2 on one server and two organizations on another two servers. Here, we use debian10.7 as the operating system. This OS should include python 3.</p>
-<h3 id="TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT"><a href="#TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT" class="headerlink" title="TO BEGIN WITH, BUILD THE ENVIRONMENT"></a>TO BEGIN WITH, BUILD THE ENVIRONMENT</h3><p>We need docker, docker-compose, GO lang. These three are of necessity. If you want to compile with java, install your jdk(please note the version you need), gradle, etc. And if you decide to compile with javascript, it is a good choice to install npm and nodejs. Anyway, it’s up to you. </p>
+<p><strong><u>Tips: All the paths in this blog are just examples. Please enter your own paths in order to avoid mistakes!!!!!</u></strong></p>
+<h3 id="TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT"><a href="#TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT" class="headerlink" title="TO BEGIN WITH, BUILD THE ENVIRONMENT"></a>TO BEGIN WITH, BUILD THE ENVIRONMENT</h3><p>We need docker, docker-compose, GO lang. These three are of necessity. If you want to compile with java, install your jdk(please notice the version you need), gradle, etc. And if you decide to compile with javascript, it is a good choice to install npm and nodejs. Anyway, it’s up to you. </p>
 <p>Here are the steps.</p>
 <p>Uninstall old versions of docker. (we usually call them docker, docker.io or docker-engine)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
@@ -120,7 +121,9 @@
 <p>Check if the install is successful</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
 
-<p><strong>tips: make sure that you have add docker to the user group</strong></p>
+<blockquote>
+<p><strong>make sure that you have add docker to the user group</strong></p>
+</blockquote>
 <p>Install docker (we use 1.24.1 as an example)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.24.1&#x2F;docker-compose-$(uname -s)-$(uname -m)&quot; -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
 
@@ -130,7 +133,9 @@
 <p>Check if you have succeeded</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
 
-<p><strong>tips: make sure you have given the executive authority!</strong></p>
+<blockquote>
+<p><strong>make sure you have given the executive authority!</strong></p>
+</blockquote>
 <p>Download go.tar with wget and url(here we use the version of 1.13.4)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;dl.google.com&#x2F;go&#x2F;go1.13.4.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
@@ -168,7 +173,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;fabric-samples&#x2F;test-network</span><br><span class="line"></span><br><span class="line">.&#x2F;network.sh up createChannel -c mychannel -ca &amp;&amp; .&#x2F;network.sh deployCC -ccn ChaincodeName -ccp ChaincodePath -ccl ChaincodeLanguage</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;here we run a java app as an example, you need gradle environment in this step</span><br><span class="line"></span><br><span class="line">cd ~&#x2F;fabric-samples&#x2F;asset-transfer-basic&#x2F;application-java</span><br><span class="line"></span><br><span class="line">gradle runapp</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;then you will see the transaction details</span><br></pre></td></tr></table></figure>
 
 <p><strong>Now you have succeeded in building the fabric network on a single server.</strong></p>
-<h3 id="FINALLY-CHANGE-FROM-ONE-SERVER-TO-FOUR-SERVERS"><a href="#FINALLY-CHANGE-FROM-ONE-SERVER-TO-FOUR-SERVERS" class="headerlink" title="FINALLY,CHANGE FROM ONE SERVER TO FOUR SERVERS"></a>FINALLY,CHANGE FROM ONE SERVER TO FOUR SERVERS</h3><p>If you have read the <strong>network.sh</strong> line by line and understood each step written in the script. Just go ahead. If you haven’t, stop right here and read the script quite carefully and you will learn a lot.</p>
+<h3 id="CHANGE-FROM-ONE-SERVER-TO-FOUR-SERVERS"><a href="#CHANGE-FROM-ONE-SERVER-TO-FOUR-SERVERS" class="headerlink" title="CHANGE FROM ONE SERVER TO FOUR SERVERS"></a>CHANGE FROM ONE SERVER TO FOUR SERVERS</h3><p>If you have read the <strong>network.sh</strong> line by line and understood each step written in the script. Just go ahead. If you haven’t, stop right here and read the script quite carefully and you will learn a lot.</p>
 <p>Now, the first step is that you must check the environment on all the four servers and make sure they are all the same. </p>
 <p><strong>Premise:</strong></p>
 <p><strong>cli, ca_orderer, ca_org1, ca_org2 on server0</strong></p>
@@ -184,14 +189,60 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;cd to the path of your files(fabric-samples&#x2F;docker)</span><br><span class="line">vim docker-compose-ca.yaml</span><br><span class="line">&#x2F;&#x2F;now add the extra_host at the bottom(behind the ports and networks)</span><br><span class="line">&#x2F;&#x2F;here is an example</span><br><span class="line"></span><br><span class="line">    extra_hosts:</span><br><span class="line">      - &quot;example.com:ip&quot;</span><br><span class="line">      - &quot;orderer.example.com:ip&quot;</span><br><span class="line">      - &quot;peer0.org1.example.com:ip&quot;</span><br><span class="line">      - &quot;peer0.org2.example.com:ip&quot;</span><br><span class="line">      </span><br><span class="line">tips:there are three &quot;extra_hosts&quot;(behind ca_org1,org2,orderer)</span><br></pre></td></tr></table></figure>
 
 <p>Now, on server0.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;the path you operate under should be consistent with network.sh. Otherwise, more configs should be modified.</span><br><span class="line"></span><br><span class="line">cd docker</span><br><span class="line">docker-compose -f docker-compose-ca.yaml up -d &#x2F;&#x2F;build ca_org and ca_orderer</span><br><span class="line">docker-compose -f docker-compose-test-net.yaml up -d &#x2F;&#x2F;build cli</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;the path you operate under should be consistent with network.sh. Otherwise, more configs should be modified.</span><br><span class="line"></span><br><span class="line">cd docker</span><br><span class="line">docker-compose -f docker-compose-ca.yaml up -d &#x2F;&#x2F;build ca_org and ca_orderer</span><br></pre></td></tr></table></figure>
+
+<p>Still on server0</p>
+<p>Register orgs and orderer</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd test-network &#x2F;&#x2F;the path where the network.sh is</span><br><span class="line">. .&#x2F;organizations&#x2F;fabric-ca&#x2F;registerEnroll.sh</span><br><span class="line">createOrderer &#x2F;&#x2F;register orderer</span><br><span class="line">. .&#x2F;organizations&#x2F;fabric-ca&#x2F;registerEnroll.sh</span><br><span class="line">createOrg1 &#x2F;&#x2F;register org1</span><br><span class="line">. .&#x2F;organizations&#x2F;fabric-ca&#x2F;registerEnroll.sh</span><br><span class="line">createOrg2 &#x2F;&#x2F;register org2</span><br></pre></td></tr></table></figure>
+
+<p>ccp-generate for org1 and org2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd test-network</span><br><span class="line">.&#x2F;organizations&#x2F;ccp-generate.sh</span><br></pre></td></tr></table></figure>
+
+
 
 <p>These steps will add new files to the <strong>organizations</strong> folder(test-network/organizations). Now you should transfer organizations folder to server1,server2 and server3. Put them under the path of <strong>fabric-samples/test-network</strong>.</p>
+<p>On server1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd docker</span><br><span class="line">docker-compose -f docker-compose-test-net.yaml up -d &#x2F;&#x2F;build orderer</span><br><span class="line">docker ps &#x2F;&#x2F;check if orderer is built</span><br></pre></td></tr></table></figure>
+
+<p>On server2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd docker</span><br><span class="line">docker-compose -f docker-compose-test-net.yaml up -d &#x2F;&#x2F;build peer0.org1.example.com</span><br><span class="line">docker ps &#x2F;&#x2F;check if peer is built</span><br></pre></td></tr></table></figure>
+
+<p>On server3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd docker</span><br><span class="line">docker-compose -f docker-compose-test-net.yaml up -d &#x2F;&#x2F;build peer0.org2.example.com</span><br><span class="line">docker ps &#x2F;&#x2F;check if peer is built</span><br></pre></td></tr></table></figure>
+
+<p>On server0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd docker</span><br><span class="line">docker-compose -f docker-compose-test-net.yaml up -d &#x2F;&#x2F;build cli</span><br><span class="line">docker ps &#x2F;&#x2F;check if cli is build</span><br></pre></td></tr></table></figure>
+
+<p>You can see docker logs to guarantee the connection between all the servers.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs &quot;id&quot;</span><br></pre></td></tr></table></figure>
+
+<p>If everything is OK, let’s go ahead.</p>
+<p>On server1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cd test-network &#x2F;&#x2F;the path where the network.sh is</span><br><span class="line">mkdir channel-artifacts &#x2F;&#x2F;create a folder to save genesis block</span><br><span class="line">cd configtx</span><br><span class="line">configtxgen -profile TwoOrgsApplicationGenesis -outputBlock ..&#x2F;channel-artifacts&#x2F;channelname.block -channelID channelname &#x2F;&#x2F;use your own channel name to generate genesis block</span><br><span class="line">cd test-network</span><br><span class="line">. .&#x2F;scripts&#x2F;envVar.sh</span><br><span class="line">setGlobals 1 &#x2F;&#x2F;setGlobals for org1</span><br><span class="line"></span><br><span class="line">cd test-network</span><br><span class="line"></span><br><span class="line">osnadmin channel join --channelID channelname --config-block .&#x2F;channel-artifacts&#x2F;channelname.block -o localhost:7053 --ca-file &#x2F;test-network&#x2F;organizations&#x2F;ordererOrganizations&#x2F;example.com&#x2F;orderers&#x2F;orderer.example.com&#x2F;msp&#x2F;tlscacerts&#x2F;tlsca.example.com-cert.pem --client-cert test-network&#x2F;organizations&#x2F;ordererOrganizations&#x2F;example.com&#x2F;orderers&#x2F;orderer.example.com&#x2F;tls&#x2F;server.crt --client-key test-network&#x2F;organizations&#x2F;ordererOrganizations&#x2F;example.com&#x2F;orderers&#x2F;orderer.example.com&#x2F;tls&#x2F;server.key</span><br><span class="line">&#x2F;&#x2F; haha, this is so long ! It is used to create the channel. Be careful! First, use your own channel name. Second, notice the path of all the three tls files. Even a little mistake is forbidden!</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Status 204 is excellent . While 1xx,3xx,4xx and 5xx occur(Something bad happened, you may check the former processes twice)</strong></p>
+</blockquote>
+<p>Then, we should transfer channel-artifacts folder to server0, server2 and server3. Put this folder under <strong>test-network</strong>.</p>
+<p>Now, a channel has been built. Let’s join the peers to the channel.</p>
+<p>On server2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd test-network</span><br><span class="line">. .&#x2F;script&#x2F;envVar.sh</span><br><span class="line">setGlobals 1</span><br><span class="line">FABRIC_CFG_PATH&#x3D;&#x2F;root&#x2F;fabric-samples&#x2F;config peer channel join -b .&#x2F;channel-artifacts&#x2F;channelname.block</span><br><span class="line">&#x2F;&#x2F;enter your own config path and channel-artifacts path!!!</span><br><span class="line">&#x2F;&#x2F;join org1 to the channel</span><br></pre></td></tr></table></figure>
+
+<p>On server3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd test-network</span><br><span class="line">. .&#x2F;script&#x2F;envVar.sh</span><br><span class="line">setGlobals 2</span><br><span class="line">FABRIC_CFG_PATH&#x3D;&#x2F;root&#x2F;fabric-samples&#x2F;config peer channel join -b .&#x2F;channel-artifacts&#x2F;channelname.block</span><br><span class="line">&#x2F;&#x2F;enter your own config path and channel-artifacts path!!!</span><br><span class="line">&#x2F;&#x2F;join org2 to the channel</span><br></pre></td></tr></table></figure>
+
+<p>All the peers have joined the channel you created. See the docker logs to check if there is something wrong.</p>
+<p>On server0</p>
+<p>Now, we should setAnchorPeer.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd test-network</span><br><span class="line">docker exec cli .&#x2F;scripts&#x2F;setAnchorPeer.sh 1 channelname</span><br><span class="line">docker exec cli .&#x2F;scripts&#x2F;setAnchorPeer.sh 2 channelname</span><br></pre></td></tr></table></figure>
+
+<p><strong>Check the docker logs on all servers. If there is no error, it means you have succeeded! CONGRATULATIONS!!!</strong></p>
+<h3 id="DEPLOY-YOUR-CHAINCODE-ON-ONE-FOUR-SERVER-S"><a href="#DEPLOY-YOUR-CHAINCODE-ON-ONE-FOUR-SERVER-S" class="headerlink" title="DEPLOY YOUR CHAINCODE ON ONE(FOUR) SERVER(S)"></a>DEPLOY YOUR CHAINCODE ON ONE(FOUR) SERVER(S)</h3><p>It is quite easy to deploy your chaincode</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cknztevsr0000sktz6v8r2erk" data-title="FABRIC" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko007uav0000qotz38r2dmq7" data-title="FABRIC" class="article-share-link">Share</a>
       
       
       
