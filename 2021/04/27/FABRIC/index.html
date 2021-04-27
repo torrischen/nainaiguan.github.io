@@ -14,7 +14,7 @@
 <meta property="og:description" content="How to build Fabric Network on four servers.The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_or">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-27T06:30:32.000Z">
-<meta property="article:modified_time" content="2021-04-27T07:59:05.696Z">
+<meta property="article:modified_time" content="2021-04-27T08:32:42.270Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -170,11 +170,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;fabric-samples&#x2F;test-network</span><br><span class="line"></span><br><span class="line">.&#x2F;network.sh up createChannel -c mychannel -ca &amp;&amp; .&#x2F;network.sh deployCC -ccn ChaincodeName -ccp ChaincodePath -ccl ChaincodeLanguage</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;here we run a java app as an example, you need gradle environment in this step</span><br><span class="line"></span><br><span class="line">cd ~&#x2F;fabric-samples&#x2F;asset-transfer-basic&#x2F;application-java</span><br><span class="line"></span><br><span class="line">gradle runapp</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;then you will see the transaction details</span><br></pre></td></tr></table></figure>
 
 <p><strong>Now you have succeeded in building the fabric network on a single server.</strong></p>
+<h3 id="FINALLY-CHANGE-FROM-ONE-SERVER-TO-FOUR-SERVERS"><a href="#FINALLY-CHANGE-FROM-ONE-SERVER-TO-FOUR-SERVERS" class="headerlink" title="FINALLY,CHANGE FROM ONE SERVER TO FOUR SERVERS"></a>FINALLY,CHANGE FROM ONE SERVER TO FOUR SERVERS</h3><p>If you have read the <strong>network.sh</strong> line by line and understood each step written in the script. Just go ahead. If you haven’t, stop right here and read the script quite carefully and you will learn a lot.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cknzqnoeu0000cstzg90u2s9r" data-title="FABRIC" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cknzrx5o20000wktz4b0t386b" data-title="FABRIC" class="article-share-link">Share</a>
       
       
       
