@@ -14,7 +14,7 @@
 <meta property="og:description" content="How to build Fabric Network on four servers.The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_or">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-27T06:30:32.000Z">
-<meta property="article:modified_time" content="2021-04-27T13:03:03.149Z">
+<meta property="article:modified_time" content="2021-04-27T13:46:39.401Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -246,8 +246,7 @@
 
 <p>Modify your deployCC.sh.</p>
 <p>On server0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Because peers are not on server0, so you should enter --peerAddress and --tlsRootCertFiles behind most commands to state the address of your peers and tlsfiles paths on other servers.                                                                                                                                       For example,       --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles &#x2F;root&#x2F;00&#x2F;test-network&#x2F;organizations&#x2F;peerOrganizations&#x2F;org1.example.com&#x2F;peers&#x2F;peer0.org1.example.com&#x2F;tls&#x2F;ca.crt </span><br></pre></td></tr></table></figure>
-
+<p>Because peers are not on server0, so you should enter –peerAddress and –tlsRootCertFiles behind most commands to state the address of your peers and tlsfiles paths on other servers.                                                                                                                                       For example,       –peerAddresses peer0.org1.example.com:7051 –tlsRootCertFiles /root/00/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt </p>
 <blockquote>
 <p>Quite a lot of sentences should be modified. This is an example and please enter you own file path.</p>
 </blockquote>
@@ -270,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko03097v0000pgtz3c9y7faa" data-title="FABRIC" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko032s3000004stzgzmf241v" data-title="FABRIC" class="article-share-link">Share</a>
       
       
       
