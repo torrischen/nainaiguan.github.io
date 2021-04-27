@@ -14,7 +14,7 @@
 <meta property="og:description" content="How to build Fabric Network on four servers.The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_or">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-27T06:30:32.000Z">
-<meta property="article:modified_time" content="2021-04-27T12:26:31.918Z">
+<meta property="article:modified_time" content="2021-04-27T13:03:03.149Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -97,6 +97,7 @@
       
         <h1 id="How-to-build-Fabric-Network-on-four-servers"><a href="#How-to-build-Fabric-Network-on-four-servers" class="headerlink" title="How to build Fabric Network on four servers."></a>How to build Fabric Network on four servers.</h1><p>The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_orderer, ca_org1 and ca_org2 on one server and two organizations on another two servers. Here, we use debian10.7 as the operating system. This OS should include python 3.</p>
 <p><strong><u>Tips: All the paths in this blog are just examples. Please enter your own paths in order to avoid mistakes!!!!!</u></strong></p>
+<p>[TOC]</p>
 <h3 id="TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT"><a href="#TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT" class="headerlink" title="TO BEGIN WITH, BUILD THE ENVIRONMENT"></a>TO BEGIN WITH, BUILD THE ENVIRONMENT</h3><p>We need docker, docker-compose, GO lang. These three are of necessity. If you want to compile with java, install your jdk(please notice the version you need), gradle, etc. And if you decide to compile with javascript, it is a good choice to install npm and nodejs. Anyway, it’s up to you. </p>
 <p>Here are the steps.</p>
 <p>Uninstall old versions of docker. (we usually call them docker, docker.io or docker-engine)</p>
@@ -239,12 +240,37 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd test-network</span><br><span class="line">docker exec cli .&#x2F;scripts&#x2F;setAnchorPeer.sh 1 channelname</span><br><span class="line">docker exec cli .&#x2F;scripts&#x2F;setAnchorPeer.sh 2 channelname</span><br></pre></td></tr></table></figure>
 
 <p><strong>Check the docker logs on all servers. If there is no error, it means you have succeeded! CONGRATULATIONS!!!</strong></p>
-<h3 id="DEPLOY-YOUR-CHAINCODE-ON-ONE-FOUR-SERVER-S"><a href="#DEPLOY-YOUR-CHAINCODE-ON-ONE-FOUR-SERVER-S" class="headerlink" title="DEPLOY YOUR CHAINCODE ON ONE(FOUR) SERVER(S)"></a>DEPLOY YOUR CHAINCODE ON ONE(FOUR) SERVER(S)</h3><p>It is quite easy to deploy your chaincode</p>
+<h3 id="DEPLOY-YOUR-CHAINCODE-ON-FOUR-SERVERS"><a href="#DEPLOY-YOUR-CHAINCODE-ON-FOUR-SERVERS" class="headerlink" title="DEPLOY YOUR CHAINCODE ON FOUR SERVERS"></a>DEPLOY YOUR CHAINCODE ON FOUR SERVERS</h3><p>It is quite easy to deploy your chaincode on only one server. Now I’ll show you how to deploy on four servers.</p>
+<p>add hosts on server0.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;hosts</span><br><span class="line">&#x2F;&#x2F; add the following text</span><br><span class="line"></span><br><span class="line">ip        orderer.example.com</span><br><span class="line">ip        peer0.org1.example.com</span><br><span class="line">ip        peer0.org2.example.com</span><br><span class="line">ip        example.com</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;in order to state ip</span><br></pre></td></tr></table></figure>
+
+<p>Modify your deployCC.sh.</p>
+<p>On server0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Because peers are not on server0, so you should enter --peerAddress and --tlsRootCertFiles behind most commands to state the address of your peers and tlsfiles paths on other servers.                                                                                                                                       For example,       --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles &#x2F;root&#x2F;00&#x2F;test-network&#x2F;organizations&#x2F;peerOrganizations&#x2F;org1.example.com&#x2F;peers&#x2F;peer0.org1.example.com&#x2F;tls&#x2F;ca.crt </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Quite a lot of sentences should be modified. This is an example and please enter you own file path.</p>
+</blockquote>
+<p>On server0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd test-network &amp;&amp; .&#x2F;network.sh deployCC -ccn chaincodename -ccp chaincodepath -ccl chaincodelanguage</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="BUILD-YOUR-WALLET-AND-RUN-YOUR-APP"><a href="#BUILD-YOUR-WALLET-AND-RUN-YOUR-APP" class="headerlink" title="BUILD YOUR WALLET AND RUN YOUR APP"></a>BUILD YOUR WALLET AND RUN YOUR APP</h3><h4 id="Build-your-wallet"><a href="#Build-your-wallet" class="headerlink" title="Build your wallet"></a>Build your wallet</h4><p>modify <strong>connection-org1.json</strong> and <strong>connection-org1.yaml</strong> under                                                                                                                               <strong>test-network/organizations/peerOrganizations/org1.example.com</strong></p>
+<p>modify <strong>connection-org2.json</strong> and <strong>connection-org2.yaml</strong> under                                                                                                                               <strong>test-network/organizations/peerOrganizations/org2.example.com</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change localhost into the ip of your own servers.</span><br></pre></td></tr></table></figure>
+
+<p>modify your app</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aslocalhost:false &#x2F;&#x2F;peers are on the different servers</span><br></pre></td></tr></table></figure>
+
+<p><strong>Warning: you must have a wallet under the path of your app folder(consistent with the path of src)</strong></p>
+<h4 id="Run-your-app"><a href="#Run-your-app" class="headerlink" title="Run your app"></a>Run your app</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd application-java</span><br><span class="line">gradle runapp</span><br><span class="line">&#x2F;&#x2F;just an example, you can run your own app.</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko007uav0000qotz38r2dmq7" data-title="FABRIC" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko01icfs0000lktz8ggneqpq" data-title="FABRIC" class="article-share-link">Share</a>
       
       
       
