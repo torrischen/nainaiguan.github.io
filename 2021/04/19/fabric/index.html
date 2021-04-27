@@ -6,15 +6,15 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="How to build Fabric Network on four servers.">
+  <meta name="description" content="How to build Fabric Network on four servers.The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_or">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="https://nainaiguan.github.io/2021/04/19/fabric/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="How to build Fabric Network on four servers.">
+<meta property="og:description" content="How to build Fabric Network on four servers.The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_or">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-19T13:49:41.590Z">
-<meta property="article:modified_time" content="2021-04-27T05:50:06.995Z">
+<meta property="article:modified_time" content="2021-04-27T06:27:15.391Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -85,11 +85,32 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="How-to-build-Fabric-Network-on-four-servers"><a href="#How-to-build-Fabric-Network-on-four-servers" class="headerlink" title="How to build Fabric Network on four servers."></a>How to build Fabric Network on four servers.</h1>
+        <h1 id="How-to-build-Fabric-Network-on-four-servers"><a href="#How-to-build-Fabric-Network-on-four-servers" class="headerlink" title="How to build Fabric Network on four servers."></a>How to build Fabric Network on four servers.</h1><p>The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_orderer, ca_org1 and ca_org2 on a server and two organizations on another two servers. Here, we use debian10.7 as the operating system. This OS should include python 3.</p>
+<h3 id="TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT"><a href="#TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT" class="headerlink" title="TO BEGIN WITH, BUILD THE ENVIRONMENT"></a>TO BEGIN WITH, BUILD THE ENVIRONMENT</h3><p>We need docker, docker-compose, GO lang. These three are of necessity. If you want to compile with java, install your jdk(please note the version you need), gradle, etc. And if you decide to compile with javascript, it is a good choice to install npm and nodejs. Anyway, it’s up to you. </p>
+<p>Here are the steps.</p>
+<p>uninstall docker of old versions.(we usually call them docker, docker.io or docker-engine)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
+
+<p>update the apt index</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>install docker(install apt dependency and get repository with HTTPS)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg2 \</span><br><span class="line">    software-properties-common</span><br></pre></td></tr></table></figure>
+
+<p>add the official key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;docker-ce&#x2F;linux&#x2F;debian&#x2F;gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<p>make sure that you have had the key with fingerprint</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key fingerprint 0EBFCD88</span><br><span class="line">&#x2F;&#x2F;you will see the following text if success</span><br><span class="line">pub   4096R&#x2F;0EBFCD88 2017-02-22</span><br><span class="line">      Key fingerprint &#x3D; 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88</span><br><span class="line">uid                  Docker Release (CE deb) &lt;docker@docker.com&gt;</span><br><span class="line">sub   4096R&#x2F;F273FCD8 2017-02-22</span><br></pre></td></tr></table></figure>
+
+<p>update the apt index</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/19/fabric/" data-id="cknzm2jgf0000xktz9wb2069z" data-title="" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/19/fabric/" data-id="cknzndohn0000x4tzhged8jz2" data-title="" class="article-share-link">Share</a>
       
       
       
