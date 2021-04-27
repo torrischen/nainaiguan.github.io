@@ -14,7 +14,7 @@
 <meta property="og:description" content="How to build Fabric Network on four servers.The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_or">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-27T06:30:32.000Z">
-<meta property="article:modified_time" content="2021-04-27T09:10:35.230Z">
+<meta property="article:modified_time" content="2021-04-27T09:16:13.393Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -188,13 +188,12 @@
 <p>Now, on server0.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;the path you operate under should be consistent with network.sh. Otherwise, more configs should be modified.</span><br><span class="line"></span><br><span class="line">cd docker</span><br><span class="line">docker-compose -f docker-compose-ca.yaml up -d &#x2F;&#x2F;build ca_org and ca_orderer</span><br><span class="line">docker-compose -f docker-compose-test-net.yaml up -d &#x2F;&#x2F;build cli</span><br></pre></td></tr></table></figure>
 
-
-
+<p>These steps will add new files to the <strong>organizations</strong> folder(test-network/organizations). Now you should transfer organizations folder to server1,server2 and server3. Put them under the path of <strong>fabric-samples/test-network</strong>.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cknzt7a270000y0tz8wmd7tax" data-title="FABRIC" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cknztevsr0000sktz6v8r2erk" data-title="FABRIC" class="article-share-link">Share</a>
       
       
       
