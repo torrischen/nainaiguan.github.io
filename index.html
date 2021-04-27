@@ -222,7 +222,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cd test-network &#x2F;&#x2F;the path where the network.sh is</span><br><span class="line">mkdir channel-artifacts &#x2F;&#x2F;create a folder to save genesis block</span><br><span class="line">cd configtx</span><br><span class="line">configtxgen -profile TwoOrgsApplicationGenesis -outputBlock ..&#x2F;channel-artifacts&#x2F;channelname.block -channelID channelname &#x2F;&#x2F;use your own channel name to generate genesis block</span><br><span class="line">cd test-network</span><br><span class="line">. .&#x2F;scripts&#x2F;envVar.sh</span><br><span class="line">setGlobals 1 &#x2F;&#x2F;setGlobals for org1</span><br><span class="line"></span><br><span class="line">cd test-network</span><br><span class="line"></span><br><span class="line">osnadmin channel join --channelID channelname --config-block .&#x2F;channel-artifacts&#x2F;channelname.block -o localhost:7053 --ca-file &#x2F;test-network&#x2F;organizations&#x2F;ordererOrganizations&#x2F;example.com&#x2F;orderers&#x2F;orderer.example.com&#x2F;msp&#x2F;tlscacerts&#x2F;tlsca.example.com-cert.pem --client-cert test-network&#x2F;organizations&#x2F;ordererOrganizations&#x2F;example.com&#x2F;orderers&#x2F;orderer.example.com&#x2F;tls&#x2F;server.crt --client-key test-network&#x2F;organizations&#x2F;ordererOrganizations&#x2F;example.com&#x2F;orderers&#x2F;orderer.example.com&#x2F;tls&#x2F;server.key</span><br><span class="line">&#x2F;&#x2F; haha, this is so long ! It is used to create the channel. Be careful! First, use your own channel name. Second, notice the path of all the three tls files. Even a little mistake is forbidden!</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>Status 204 is excellent . While 1xx,3xx,4xx and 5xx occur(Something bad happened, you may check the former processes twice)</strong></p>
+<p><strong>Status 204 is excellent . When 1xx,3xx,4xx and 5xx occur(Something bad happened, you may check the former processes twice)</strong></p>
 </blockquote>
 <p>Then, we should transfer channel-artifacts folder to server0, server2 and server3. Put this folder under <strong>test-network</strong>.</p>
 <p>Now, a channel has been built. Let’s join the peers to the channel.</p>
@@ -267,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko032s3000004stzgzmf241v" data-title="FABRIC" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko034a2t0000ustz23uuh3wj" data-title="FABRIC" class="article-share-link">Share</a>
       
       
       
