@@ -95,20 +95,7 @@
       
         <h1 id="How-to-build-Fabric-Network-on-four-servers"><a href="#How-to-build-Fabric-Network-on-four-servers" class="headerlink" title="How to build Fabric Network on four servers."></a>How to build Fabric Network on four servers.</h1><p>The whole network includes an orderer and two peers belonging to two different organizations. In this blog, we put the orderer on one server, the cli, ca_orderer, ca_org1 and ca_org2 on one server and two organizations on another two servers. Here, we use debian10.7 as the operating system. This OS should include python 3.</p>
 <p><strong><u>Tips: All the paths in this blog are just examples. Please enter your own paths in order to avoid mistakes!!!!!</u></strong></p>
-<ul>
-<li><a href="#how-to-build-fabric-network-on-four-servers">How to build Fabric Network on four servers.</a><ul>
-<li><a href="#to-begin-with-build-the-environment">TO BEGIN WITH, BUILD THE ENVIRONMENT</a></li>
-<li><a href="#git-clone-the-open-source-of-fabric-and-pull-the-images">GIT CLONE THE OPEN SOURCE OF FABRIC AND PULL THE IMAGES</a></li>
-<li><a href="#change-from-one-server-to-four-servers">CHANGE FROM ONE SERVER TO FOUR SERVERS</a></li>
-<li><a href="#deploy-your-chaincode-on-four-servers">DEPLOY YOUR CHAINCODE ON FOUR SERVERS</a></li>
-<li><a href="#build-your-wallet-and-run-your-app">BUILD YOUR WALLET AND RUN YOUR APP</a><ul>
-<li><a href="#build-your-wallet">Build your wallet</a></li>
-<li><a href="#run-your-app">Run your app</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>[[<em>TOC</em>]]</p>
 <h3 id="TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT"><a href="#TO-BEGIN-WITH-BUILD-THE-ENVIRONMENT" class="headerlink" title="TO BEGIN WITH, BUILD THE ENVIRONMENT"></a>TO BEGIN WITH, BUILD THE ENVIRONMENT</h3><p>We need docker, docker-compose, GO lang. These three are of necessity. If you want to compile with java, install your jdk(please notice the version you need), gradle, etc. And if you decide to compile with javascript, it is a good choice to install npm and nodejs. Anyway, it’s up to you. </p>
 <p>Here are the steps.</p>
 <p>Uninstall old versions of docker. (we usually call them docker, docker.io or docker-engine)</p>
@@ -196,7 +183,7 @@
 <p><strong>peer0.org2.example.com on server4</strong></p>
 <p>After the preparation, let’s start.</p>
 <p>Modify docker-compose-test-net.yaml and docker-compose-ca.yaml (you only need to modify the test-net.yaml on server1,2,3)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//<span class="built_in">cd</span> to the path of your files(fabric-samples/docker)</span><br><span class="line">vim docker-compose-test-net.yaml</span><br><span class="line">//retain what you need and delete the spare(example:on server 3,you only need the config of org1)</span><br><span class="line">//now add the extra_host at the bottom(behind the ports and networks)</span><br><span class="line">//here is an example</span><br><span class="line"></span><br><span class="line">    extra_hosts:</span><br><span class="line">      - <span class="string">&quot;example.com:ip&quot;</span></span><br><span class="line">      - <span class="string">&quot;orderer.example.com:ip&quot;</span></span><br><span class="line">      - <span class="string">&quot;peer0.org1.example.com:ip&quot;</span></span><br><span class="line">      - <span class="string">&quot;peer0.org2.example.com:ip&quot;</span></span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//<span class="built_in">cd</span> to the path of your files(test-network/docker)</span><br><span class="line">vim docker-compose-test-net.yaml</span><br><span class="line">//retain what you need and delete the spare(example:on server 3,you only need the config of org1)</span><br><span class="line">//now add the extra_host at the bottom(behind the ports and networks)</span><br><span class="line">//here is an example</span><br><span class="line"></span><br><span class="line">    extra_hosts:</span><br><span class="line">      - <span class="string">&quot;example.com:ip&quot;</span></span><br><span class="line">      - <span class="string">&quot;orderer.example.com:ip&quot;</span></span><br><span class="line">      - <span class="string">&quot;peer0.org1.example.com:ip&quot;</span></span><br><span class="line">      - <span class="string">&quot;peer0.org2.example.com:ip&quot;</span></span><br><span class="line">      </span><br></pre></td></tr></table></figure>
 
 
 
@@ -275,11 +262,10 @@
 
 <p><strong>Warning: you must have a wallet under the path of your app folder(consistent with the path of src)</strong></p>
 <h4 id="Run-your-app"><a href="#Run-your-app" class="headerlink" title="Run your app"></a>Run your app</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> application-java</span><br><span class="line">gradle runapp</span><br><span class="line">//just an example, you can run your own app.</span><br></pre></td></tr></table></figure>
-
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko0t5jbo0000lktz95lpa34n" data-title="FABRIC" class="article-share-link">Share</a>
+      <a data-url="https://nainaiguan.github.io/2021/04/27/FABRIC/" data-id="cko0th52e00002ctz57e0bw07" data-title="FABRIC" class="article-share-link">Share</a>
       
       
       
